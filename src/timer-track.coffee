@@ -13,6 +13,7 @@ class TimerTrack
 
   play: () ->
     console.log "Playing"
+    @emit 'end'
 
   emit: (event, args...) ->
     return false unless @events[event]
