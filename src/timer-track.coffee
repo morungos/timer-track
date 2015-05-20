@@ -2,11 +2,11 @@
 
 class TimerTrack
 
-  @index: null
+  index: null
 
-  @queue: []
+  queue: []
 
-  @events: {}
+  events: {}
 
   add: (time, data) ->
     @queue.push {time: time, data: data}
