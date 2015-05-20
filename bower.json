@@ -1,0 +1,9 @@
+{
+  "name": "timer-track",
+  "version": "0.1.0",
+  "main": ["js/timer-track.js"],
+  "author": "Stuart Watt <stuart.watt@turalt.com>",
+  "license": "BSD",
+  "dependencies": {},
+  "ignore": {}
+}

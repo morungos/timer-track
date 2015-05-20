@@ -1,0 +1,34 @@
+{
+  "name": "timer-track",
+  "description": "JavaScript module which generates events from a schedule",
+  "version": "0.1.0",
+  "license": "BSD",
+  "keywords": [
+    "timer",
+    "events"
+  ],
+  "homepage": "https://github.com/morungos/timer-track",
+  "author": "Stuart Watt <stuart.watt@turalt.com>",
+  "scripts": {
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/morungos/timer-track.git"
+  },
+  "bugs": {
+    "url": "https://github.com/morungos/timer-track/issues"
+  },
+  "devDependencies": {
+    "browserify": "^10.2.0",
+    "coffee-script": "^1.9.2",
+    "coffeeify": "^1.1.0",
+    "gulp": "^3.8.11",
+    "gulp-coffee": "^2.3.1",
+    "gulp-mocha": "^2.0.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-sourcemaps": "^1.5.2",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0"
+  }
+}
