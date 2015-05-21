@@ -8,22 +8,61 @@ class TimerTrack
 
   events: {}
 
+  constructor: () ->
+    @queue = []
+    @events = {}
+
   add: (time, data) ->
     @queue.push {time: time, data: data}
 
+  playEventRecord = {}
+
+  playEvent = (self) ->
+
+    if self.index == null
+      if self.queue.length > 0
+        timeout = self.queue[0].time
+        self.index = 0
+        setTimeout playEvent, timeout, self
+      else
+        self.emit 'end', {}
+      return
+
+    playEventRecord.index = self.index
+    playEventRecord.data = self.queue[self.index].data
+    self.emit 'timer', playEventRecord
+
+    self.index++
+
+    if self.index < self.queue.length
+      timeout = self.queue[self.index].time
+      setTimeout playEvent, timeout, self
+
+    else
+      self.index = null
+      self.emit 'end', {}
+
+
   play: () ->
-    console.log "Playing"
-    @emit 'end'
+    self = @
+    playEvent(self)
+
+
+  clear: () ->
+    @queue = []
+
 
   emit: (event, args...) ->
     return false unless @events[event]
     listener args... for listener in @events[event]
     return true
+
  
   addListener: (event, listener) ->
     @emit 'newListener', event, listener
     (@events[event]?=[]).push listener
     return @
+
  
   on: (evt, handler) =>
     @addListener(evt, handler)

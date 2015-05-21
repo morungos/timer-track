@@ -29,13 +29,62 @@ describe 'TimerTrack', () ->
   describe 'add', () ->
 
     it 'should add a single event', (done) ->
-      timerTrack.add(0, "Immediate")
+      timerTrack.add(0, "Empty")
       done()
 
 
   describe 'play', () ->
 
-    it 'should play correctly', (done) ->
-      timerTrack.on 'end', (e) -> done()
-      timerTrack.add(0, "Immediate")
+
+    it 'should play correctly with no items', (done) ->
+
+      timerCalled = false
+
+      timerTrack.on 'end', (e) -> 
+        should.exist(timerCalled)
+        timerCalled.should.be.false
+        done()
+
+      timerTrack.on 'timer', (e) -> 
+        timerCalled = true
+
       timerTrack.play()
+
+
+    it 'should play correctly with three notifications', (done) ->
+
+      data = []
+
+      timerTrack.on 'end', (e) -> 
+        data.should.be.instanceof(Array).and.have.lengthOf(3)
+        data[0].should.equal("First")
+        data[1].should.equal("Second")
+        data[2].should.equal("Third")
+        done()
+
+      timerTrack.on 'timer', (e) -> 
+        data.push e.data
+
+      timerTrack.add(0, "First")
+      timerTrack.add(50, "Second")
+      timerTrack.add(100, "Third")
+      timerTrack.play()
+
+
+    it 'should play correctly after clearing', (done) ->
+
+      timerCalled = false
+
+      timerTrack.on 'end', (e) -> 
+        should.exist(timerCalled)
+        timerCalled.should.be.false
+        done()
+
+      timerTrack.on 'timer', (e) -> 
+        timerCalled = true
+
+      timerTrack.add(0, "First")
+      timerTrack.clear()
+      timerTrack.play()
+
+
