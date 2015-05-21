@@ -12,9 +12,9 @@ building a simple animation.
 
 ```
 var timer = new TimerTrack();
-timer.addEvent(100, "Hello");
-timer.addEvent(200, "world! ");
-timer.addEvent(50, {name: "key", value: ["Any", "old", "data"]});
+timer.add(100, "Hello");
+timer.add(200, "world! ");
+timer.add(50, {name: "key", value: ["Any", "old", "data"]});
 timer.on('timer', function(e) {
   console.log("Timer", e.value);
 });
