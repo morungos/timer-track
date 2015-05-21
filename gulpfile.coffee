@@ -8,6 +8,13 @@ browserify =       require 'browserify'
 coffeeify =        require 'coffeeify'
 source =           require 'vinyl-source-stream'
 buffer =           require 'vinyl-buffer'
+del =              require 'del'
+
+uglify =           require 'gulp-uglify'
+
+gulp.task 'clean', (cb) ->
+  del(['./lib'], cb)
+
 
 gulp.task 'coffee', () ->
 
@@ -31,4 +38,12 @@ gulp.task 'test', ['coffee'], () ->
   gulp.src './test/**/*.*coffee'
     .pipe mocha({reporter: 'spec'})
 
-gulp.task 'build', ['coffee']
+
+gulp.task 'compress', ['coffee'], () ->
+  gulp.src './lib/*.js'
+    .pipe uglify()
+    .pipe rename {extname: '.min.js'}
+    .pipe gulp.dest './lib/'
+
+
+gulp.task 'build', ['coffee', 'compress']
