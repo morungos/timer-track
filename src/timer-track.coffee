@@ -45,6 +45,10 @@ class TimerTrack
 
   play: () ->
     self = @
+    if self.index != null
+      throw new Error("Can't play while still playing")
+      
+    self.index = null
     playEvent(self)
 
 

@@ -88,3 +88,35 @@ describe 'TimerTrack', () ->
       timerTrack.play()
 
 
+    it 'should throw an error when called if still playing', (done) ->
+
+      errorSignalled = false
+
+      timerTrack.on 'end', (e) -> 
+        should.exist(errorSignalled)
+        errorSignalled.should.be.true
+        done()
+
+      timerTrack.on 'timer', (e) -> 
+        try
+          timerTrack.play()
+        catch e
+          errorSignalled = true
+        
+      timerTrack.add(50, "First")
+      timerTrack.play()
+
+
+    it 'should successfully play a second time', (done) ->
+
+      playCount = 0
+
+      timerTrack.on 'end', (e) -> 
+        if playCount == 2
+          done()
+        else
+          playCount++
+          timerTrack.play()
+
+      timerTrack.add(10, "First")
+      timerTrack.play()

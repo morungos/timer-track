@@ -12,6 +12,7 @@
     "LICENSE",
     "README.md",
     "package.json",
+    "node_modules/**/*",
     "src/**/*",
     "test/**/*"
   ]
