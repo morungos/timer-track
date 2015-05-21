@@ -16,7 +16,7 @@ timer.add(100, "Hello");
 timer.add(200, "world! ");
 timer.add(50, {name: "key", value: ["Any", "old", "data"]});
 timer.on('timer', function(e) {
-  console.log("Timer", e.value);
+  console.log("Timer", e.data);
 });
 timer.on('end', function(e) {
   console.log("Done");
@@ -26,6 +26,6 @@ timer.play();
 
 ## License
 
-Copyright (c) 2014. Stuart Watt.
+Copyright (c) 2015. Stuart Watt.
 
-Licensed under the MIT License.
+Licensed under the BSD License.
