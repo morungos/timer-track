@@ -22,6 +22,7 @@ gulp.task 'coffee', () ->
     entries: './src/timer-track'
     extensions: ['.coffee']
     debug: true
+    standalone: 'TimerTrack'
     transform: [coffeeify]
   }
 
@@ -40,7 +41,7 @@ gulp.task 'test', ['coffee'], () ->
 
 
 gulp.task 'compress', ['coffee'], () ->
-  gulp.src './lib/*.js'
+  gulp.src ['./lib/*.js', '!./lib/*.min.js']
     .pipe uglify()
     .pipe rename {extname: '.min.js'}
     .pipe gulp.dest './lib/'
