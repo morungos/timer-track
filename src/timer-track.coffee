@@ -29,7 +29,10 @@ class TimerTrack
       return
 
     playEventRecord.index = self.index
-    playEventRecord.data = self.queue[self.index].data
+    data = self.queue[self.index].data
+    if typeof data == 'function'
+      data = data()
+    playEventRecord.data = data
     self.emit 'timer', playEventRecord
 
     self.index++

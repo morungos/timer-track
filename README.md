@@ -11,6 +11,9 @@ timings, and then start them running with a simple listener.
 
 ## How do I use this module?
 
+It's designed to work with both node.js and browsers, so use it as
+you see fit. No need for jQuery or any other dependencies.
+
 ```
 var timer = new TimerTrack();
 timer.add(100, "Hello");
@@ -31,6 +34,10 @@ timer.play();
 
 Adds a new time point to the timer track. The data is passed out as 
 the `data` property of the timer event, but isn't used by this module.
+
+Data can also be a function, in which case it is called with no
+arguments an its value passed to the event. This is useful for deferring
+data generation.
 
 #### play()
 

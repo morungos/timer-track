@@ -120,3 +120,23 @@ describe 'TimerTrack', () ->
 
       timerTrack.add(10, "First")
       timerTrack.play()
+
+
+    it 'should play correctly with function notifications', (done) ->
+
+      data = []
+
+      timerTrack.on 'end', (e) -> 
+        data.should.be.instanceof(Array).and.have.lengthOf(2)
+        data[0].should.equal("First")
+        data[1].should.equal("Second")
+        done()
+
+      timerTrack.on 'timer', (e) -> 
+        data.push e.data
+
+      timerTrack.add 0, () -> "First"
+      timerTrack.add 10, () -> "Second"
+      timerTrack.play()
+
+
