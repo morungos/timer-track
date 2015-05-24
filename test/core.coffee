@@ -88,3 +88,55 @@ describe 'TimerTrack', () ->
       timerTrack.play()
 
 
+    it 'should throw an error when called if still playing', (done) ->
+
+      errorSignalled = false
+
+      timerTrack.on 'end', (e) -> 
+        should.exist(errorSignalled)
+        errorSignalled.should.be.true
+        done()
+
+      timerTrack.on 'timer', (e) -> 
+        try
+          timerTrack.play()
+        catch e
+          errorSignalled = true
+        
+      timerTrack.add(50, "First")
+      timerTrack.play()
+
+
+    it 'should successfully play a second time', (done) ->
+
+      playCount = 0
+
+      timerTrack.on 'end', (e) -> 
+        if playCount == 2
+          done()
+        else
+          playCount++
+          timerTrack.play()
+
+      timerTrack.add(10, "First")
+      timerTrack.play()
+
+
+    it 'should play correctly with function notifications', (done) ->
+
+      data = []
+
+      timerTrack.on 'end', (e) -> 
+        data.should.be.instanceof(Array).and.have.lengthOf(2)
+        data[0].should.equal("First")
+        data[1].should.equal("Second")
+        done()
+
+      timerTrack.on 'timer', (e) -> 
+        data.push e.data
+
+      timerTrack.add 0, () -> "First"
+      timerTrack.add 10, () -> "Second"
+      timerTrack.play()
+
+
